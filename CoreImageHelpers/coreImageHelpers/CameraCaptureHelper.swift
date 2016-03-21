@@ -19,7 +19,7 @@ import UIKit
 class CameraCaptureHelper: NSObject
 {
     let captureSession = AVCaptureSession()
-    let cameraPosition: AVCaptureDevicePosition
+    var cameraPosition: AVCaptureDevicePosition
     
     weak var delegate: CameraCaptureHelperDelegate?
     
@@ -66,13 +66,41 @@ class CameraCaptureHelper: NSObject
         
         captureSession.startRunning()
     }
+    
+    func toggleCamera()
+    {
+        let targetPosition:AVCaptureDevicePosition = cameraPosition == .Back ? .Front : .Back
+        captureSession.beginConfiguration()
+        for input in self.captureSession.inputs {
+            self.captureSession.removeInput(input as! AVCaptureDeviceInput)
+        }
+        guard let camera = (AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo) as! [AVCaptureDevice])
+            .filter({ $0.position == targetPosition })
+            .first else
+        {
+            fatalError("Unable to access camera")
+        }
+        
+        do
+        {
+            let input = try AVCaptureDeviceInput(device: camera)
+            
+            captureSession.addInput(input)
+        }
+        catch
+        {
+            fatalError("Unable to access back camera")
+        }
+        self.cameraPosition = targetPosition
+        captureSession.commitConfiguration()
+        
+    }
 }
 
 extension CameraCaptureHelper: AVCaptureVideoDataOutputSampleBufferDelegate
 {
     func captureOutput(captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, fromConnection connection: AVCaptureConnection!)
     {
-        connection.videoOrientation = AVCaptureVideoOrientation(rawValue: UIApplication.sharedApplication().statusBarOrientation.rawValue)!
         
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else
         {

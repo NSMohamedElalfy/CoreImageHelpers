@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController, CameraCaptureHelperDelegate
 {
-    let imageView = MetalImageView() //  OpenGLImageView()
+    let imageView = OpenGLImageView() //  MetalImageView()
 
     let cameraCaptureHelper = CameraCaptureHelper(cameraPosition: .Front)
     
@@ -21,6 +21,12 @@ class ViewController: UIViewController, CameraCaptureHelperDelegate
     {
         super.viewDidLoad()
      
+        // this is default value of content mode
+        //self.imageView.openGLImageViewContentMode = .AspectFill
+        
+        // or
+        //self.imageView.openGLImageViewContentMode = .AspectFit
+        
         view.addSubview(imageView)
 
         cameraCaptureHelper.delegate = self
@@ -28,13 +34,15 @@ class ViewController: UIViewController, CameraCaptureHelperDelegate
     
     override func viewDidLayoutSubviews()
     {
-        imageView.frame = view.bounds.insetBy(dx: 50, dy: 50)
+        imageView.frame = view.bounds
     }
 
     
     func newCameraImage(cameraCaptureHelper: CameraCaptureHelper, image: CIImage)
     {
-        halftone.setValue(image, forKey: kCIInputImageKey)
+        let inputImage = image.imageByApplyingTransform(cameraCaptureHelper.cameraPosition.transform)
+        
+        halftone.setValue(inputImage, forKey: kCIInputImageKey)
         
         imageView.image = halftone.outputImage
     }

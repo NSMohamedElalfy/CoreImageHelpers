@@ -14,6 +14,9 @@
 		3E97FA6E1C40EE58006365F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E97FA6C1C40EE58006365F7 /* LaunchScreen.storyboard */; };
 		3E97FA771C40EED4006365F7 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E97FA761C40EED4006365F7 /* ImageView.swift */; };
 		3E97FA821C414257006365F7 /* CameraCaptureHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E97FA811C414257006365F7 /* CameraCaptureHelper.swift */; };
+		B19294BF1CA0880100B5D7EC /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B19294BE1CA0880100B5D7EC /* Metal.framework */; };
+		B19294C11CA0880B00B5D7EC /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B19294C01CA0880B00B5D7EC /* MetalKit.framework */; };
+		B19294C31CA08ADD00B5D7EC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19294C21CA08ADD00B5D7EC /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +29,9 @@
 		3E97FA6F1C40EE58006365F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E97FA761C40EED4006365F7 /* ImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageView.swift; path = coreImageHelpers/ImageView.swift; sourceTree = "<group>"; };
 		3E97FA811C414257006365F7 /* CameraCaptureHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CameraCaptureHelper.swift; path = coreImageHelpers/CameraCaptureHelper.swift; sourceTree = "<group>"; };
+		B19294BE1CA0880100B5D7EC /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
+		B19294C01CA0880B00B5D7EC /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
+		B19294C21CA08ADD00B5D7EC /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +39,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B19294C11CA0880B00B5D7EC /* MetalKit.framework in Frameworks */,
+				B19294BF1CA0880100B5D7EC /* Metal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +50,8 @@
 		3E97FA571C40EE57006365F7 = {
 			isa = PBXGroup;
 			children = (
+				B19294C01CA0880B00B5D7EC /* MetalKit.framework */,
+				B19294BE1CA0880100B5D7EC /* Metal.framework */,
 				3E97FA621C40EE57006365F7 /* CoreImageHelpers */,
 				3E97FA611C40EE57006365F7 /* Products */,
 			);
@@ -75,6 +85,7 @@
 			children = (
 				3E97FA811C414257006365F7 /* CameraCaptureHelper.swift */,
 				3E97FA761C40EED4006365F7 /* ImageView.swift */,
+				B19294C21CA08ADD00B5D7EC /* Extensions.swift */,
 			);
 			name = coreImageHelpers;
 			sourceTree = "<group>";
@@ -157,6 +168,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B19294C31CA08ADD00B5D7EC /* Extensions.swift in Sources */,
 				3E97FA771C40EED4006365F7 /* ImageView.swift in Sources */,
 				3E97FA821C414257006365F7 /* CameraCaptureHelper.swift in Sources */,
 				3E97FA661C40EE58006365F7 /* ViewController.swift in Sources */,
@@ -275,8 +287,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = CoreImageHelpers/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = uk.co.flexmonkey.CoreImageHelpers;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mo7amedelalfy.coreImageHelpers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -286,8 +299,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = CoreImageHelpers/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = uk.co.flexmonkey.CoreImageHelpers;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mo7amedelalfy.coreImageHelpers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -310,6 +324,7 @@
 				3E97FA741C40EE58006365F7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

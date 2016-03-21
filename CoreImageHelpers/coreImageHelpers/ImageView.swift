@@ -8,7 +8,7 @@
 
 import GLKit
 import UIKit
-import MetalKit
+import MetalKit // Don't worry this error is because MetalKit is just available on real device ;)
 
 /// `MetalImageView` extends an `MTKView` and exposes an `image` property of type `CIImage` to
 /// simplify Metal based rendering of Core Image filters.
@@ -114,12 +114,16 @@ class OpenGLImageView: GLKView
             options: [kCIContextWorkingColorSpace: NSNull()])
     }()
     
+    
+    var openGLImageViewContentMode:OpenGLImageViewContentMode!
+    
     override init(frame: CGRect)
     {
         super.init(frame: frame, context: eaglContext)
     
         context = self.eaglContext
         delegate = self
+        openGLImageViewContentMode = OpenGLImageViewContentMode.AspectFill
     }
 
     override init(frame: CGRect, context: EAGLContext)
@@ -151,10 +155,19 @@ extension OpenGLImageView: GLKViewDelegate
             return
         }
    
-        let targetRect = image.extent.aspectFitInRect(
-            target: CGRect(origin: CGPointZero,
-                size: CGSize(width: drawableWidth,
-                    height: drawableHeight)))
+        var targetRect:CGRect!
+        switch self.openGLImageViewContentMode! {
+        case .AspectFill :
+            targetRect = image.extent.aspectFillInRect(
+                target: CGRect(origin: CGPointZero,
+                    size: CGSize(width: drawableWidth,
+                        height: drawableHeight)))
+        case .AspectFit:
+            targetRect = image.extent.aspectFitInRect(
+                target: CGRect(origin: CGPointZero,
+                    size: CGSize(width: drawableWidth,
+                        height: drawableHeight)))
+        }
         
         let ciBackgroundColor = CIColor(
             color: backgroundColor ?? UIColor.whiteColor())
@@ -175,28 +188,8 @@ extension OpenGLImageView: GLKViewDelegate
     }
 }
 
-extension CGRect
-{
-    func aspectFitInRect(target target: CGRect) -> CGRect
-    {
-        let scale: CGFloat =
-        {
-            let scale = target.width / self.width
-            
-            return self.height * scale <= target.height ?
-                scale :
-                target.height / self.height
-        }()
-        
-        let width = self.width * scale
-        let height = self.height * scale
-        let x = target.midX - width / 2
-        let y = target.midY - height / 2
-        
-        return CGRect(x: x,
-            y: y,
-            width: width,
-            height: height)
-    }
+public enum OpenGLImageViewContentMode : Int {
+    case AspectFill = 0
+    case AspectFit = 1
 }
 
